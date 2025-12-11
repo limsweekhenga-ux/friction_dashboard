@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friction Simulation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Friction and Force Simulation</h1>
+
+        <div class="controls">
+            <label for="surface-select">Select Surface Material:</label>
+            <select id="surface-select">
+                <option value="plastic">Plastic</option>
+                <option value="metal">Metal</option>
+                <option value="sandpaper">Sandpaper</option>
+                <option value="carpet">Carpet</option>
+            </select>
+        </div>
+
+        <div id="simulation-area">
+            <div id="surface-display"></div>
+            <div id="block-and-spring">
+                <div class="spring-balance">
+                    <div class="scale-reading">Reading: <span id="force-display">0.00</span> N</div>
+                </div>
+                <div id="wood-block"></div>
+            </div>
+            
+        </div>
+
+        <div class="data-output">
+            <h2>Data Output</h2>
+            <p>Coefficient of Kinetic Friction ($\mu_k$): <span id="mu-display">0.00</span></p>
+            <p>Block Mass ($m$): 0.5 kg (Constant)</p>
+            <p>Calculated Force Required ($F_{pull}$): <span id="force-calc-display">0.00</span> N</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
