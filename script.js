@@ -2,58 +2,93 @@ document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const surfaceSelect = document.getElementById('surface-select');
     const surfaceDisplay = document.getElementById('surface-display');
-    const muDisplay = document.getElementById('mu-display');
-    const forceDisplay = document.getElementById('force-display');
-    const forceCalcDisplay = document.getElementById('force-calc-display');
+    const requiredForceDisplay = document.getElementById('required-force-display');
+    const forceDisplay = document.getElementById('force-display'); // Slider reading
+    const pullSlider = document.getElementById('pull-slider'); // The new slider
+    const blockAndSpring = document.getElementById('block-and-spring');
+    const pullFeedback = document.getElementById('pull-feedback');
 
     // Physics Constants and Variables
     const MASS_BLOCK = 0.5; // kg
-    const GRAVITY = 9.81; // m/s^2 (approximates Normal Force N = mg)
-    
-    // F_pull = F_friction = mu_k * N
-    // F_pull = mu_k * m * g
-    
+    const GRAVITY = 9.81; // m/s^2
+    let requiredPullForce = 0; // Variable to store the calculated force
+
     // Friction Coefficients (Example/Approximate values for kinetic friction mu_k)
-    // Source: Common physics textbook examples
     const frictionCoefficients = {
-        plastic: 0.1,    // Low friction
-        metal: 0.25,     // Medium-low friction
-        sandpaper: 0.5,  // Medium-high friction
-        carpet: 0.8      // High friction
+        plastic: 0.1,    
+        metal: 0.25,     
+        sandpaper: 0.5,  
+        carpet: 0.8      
     };
 
     /**
-     * Calculates the required pulling force and updates the dashboard displays.
+     * Calculates the required pulling force and updates the required force display.
      * @param {string} surfaceKey - The key corresponding to the selected surface.
      */
-    function updateSimulation(surfaceKey) {
-        // 1. Get the coefficient of kinetic friction (mu_k)
+    function updateRequiredForce(surfaceKey) {
         const mu_k = frictionCoefficients[surfaceKey];
 
-        // 2. Calculate the required pulling force (F_pull) to overcome friction
-        // We assume constant velocity (F_pull = F_friction)
-        const forcePull = mu_k * MASS_BLOCK * GRAVITY;
+        // F_pull = mu_k * m * g
+        requiredPullForce = mu_k * MASS_BLOCK * GRAVITY;
 
-        // 3. Update Visuals
-        // Clear existing surface classes and add the new one
+        // Update the visual surface
         surfaceDisplay.className = '';
         surfaceDisplay.classList.add(surfaceKey);
-
-        // 4. Update Data Output
-        muDisplay.textContent = mu_k.toFixed(2);
         
-        // Update Spring Balance Reading (simulated reading)
-        forceDisplay.textContent = forcePull.toFixed(2);
+        // Update the REQUIRED force output (the answer the student is seeking)
+        requiredForceDisplay.textContent = requiredPullForce.toFixed(2);
         
-        // Update Calculated Force Display
-        forceCalcDisplay.textContent = forcePull.toFixed(2) + ' N';
+        // Reset the slider and block position when surface changes
+        pullSlider.value = 0;
+        updateSimulationVisuals(0); 
+        pullFeedback.textContent = 'Slide the spring balance to pull the block.';
+        pullFeedback.style.color = '#333';
     }
 
-    // Event Listener for the surface selection dropdown
+    /**
+     * Updates the visuals (block position and force reading) based on the slider.
+     * @param {number} pullForce - The force currently applied by the user (slider value).
+     */
+    function updateSimulationVisuals(pullForce) {
+        // 1. Update the instantaneous force reading on the spring balance
+        forceDisplay.textContent = pullForce.toFixed(2);
+
+        // 2. Check if the applied force overcomes the required friction force
+        if (pullForce >= requiredPullForce) {
+            // Block is moving! Move the block more significantly
+            const movement = 10 + (pullForce - requiredPullForce) * 20; // Starts moving slightly past required force
+            blockAndSpring.style.transform = `translateX(${movement}px)`;
+            
+            pullFeedback.textContent = `SUCCESS! Block is moving at ${pullForce.toFixed(2)} N.`;
+            pullFeedback.style.color = '#5cb85c'; // Green
+        } else if (pullForce > 0) {
+            // Force is applied but NOT enough to move (static friction visualized)
+            const displacement = pullForce * 5; // Small displacement to show tension
+            blockAndSpring.style.transform = `translateX(${displacement}px)`;
+            
+            pullFeedback.textContent = 'Force applied, but not enough to move the block.';
+            pullFeedback.style.color = '#f0ad4e'; // Orange/Yellow
+        } else {
+            // No force applied
+            blockAndSpring.style.transform = 'translateX(0px)';
+            pullFeedback.textContent = 'Slide the spring balance to pull the block.';
+            pullFeedback.style.color = '#333';
+        }
+    }
+
+    // --- EVENT LISTENERS ---
+
+    // 1. Surface selection listener
     surfaceSelect.addEventListener('change', (event) => {
-        updateSimulation(event.target.value);
+        updateRequiredForce(event.target.value);
     });
 
-    // Initialize the simulation with the default surface (plastic)
-    updateSimulation(surfaceSelect.value);
+    // 2. Slider input listener
+    pullSlider.addEventListener('input', (event) => {
+        const currentPullForce = parseFloat(event.target.value);
+        updateSimulationVisuals(currentPullForce);
+    });
+
+    // Initialize the simulation with the default surface
+    updateRequiredForce(surfaceSelect.value);
 });
