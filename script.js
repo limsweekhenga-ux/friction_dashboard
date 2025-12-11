@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dragging state variables
     let isDragging = false;
     const START_OFFSET = 10; // Initial left position (in percentage)
-    const MAX_PULL_PIXELS = 300; // Max distance the block can be dragged (limits drag to prevent running off screen)
+    const MAX_PULL_PIXELS = 300; // Max distance the block can be dragged
     const FORCE_TO_PIXEL_RATIO = 50; // 50 pixels of stretch/pull = 1 Newton of force
 
     // Friction Coefficients 
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /**
-     * Calculates the required pulling force based on the selected surface.
+     * Calculates the required pulling force and updates displays.
      */
     function updateRequiredForce(surfaceKey) {
         const mu_k = frictionCoefficients[surfaceKey];
@@ -52,14 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function startDrag(e) {
         isDragging = true;
-        // Prevent default text selection behavior
         e.preventDefault(); 
         
-        // Add event listeners to the window for moving and releasing
         window.addEventListener('mousemove', dragMove);
         window.addEventListener('mouseup', dragEnd);
-        
-        // For mobile devices:
         window.addEventListener('touchmove', dragMove);
         window.addEventListener('touchend', dragEnd);
     }
@@ -70,20 +66,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function dragMove(e) {
         if (!isDragging) return;
 
-        // Determine the horizontal mouse/touch position
         const clientX = e.clientX || e.touches[0].clientX;
-        
-        // Get the position of the simulation area to calculate drag distance
         const simAreaRect = document.getElementById('simulation-area').getBoundingClientRect();
         
         // Calculate the raw drag distance from the starting point
-        // We subtract the sim area's left boundary and the initial 10% offset of the block
         let dragDistance = clientX - simAreaRect.left - (simAreaRect.width * START_OFFSET / 100);
         
-        // Clamp the distance to prevent dragging off the screen
+        // Clamp the distance
         dragDistance = Math.max(0, Math.min(dragDistance, MAX_PULL_PIXELS));
         
-        // Calculate the applied force: Force = Distance / Ratio
+        // Calculate the applied force
         const appliedForce = dragDistance / FORCE_TO_PIXEL_RATIO;
         
         // Update the visual spring balance reading
