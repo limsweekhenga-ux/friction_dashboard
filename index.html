@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refined Friction Simulation Dashboard</title>
+    <title>Drag Friction Simulation Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="dashboard">
-        <h1>Friction and Force Simulation Refined</h1>
+        <h1>Friction and Force Simulation (Drag Interaction)</h1>
 
         <div class="controls">
             <label for="surface-select">Select Surface Material:</label>
@@ -27,16 +27,11 @@
                 <div class="spring-balance">
                     <div class="scale-reading">Force: <span id="force-display">0.00</span> N</div>
                 </div>
-                <div id="wood-block"></div>
+                <div id="wood-block"></div> 
             </div>
             
         </div>
         
-        <div class="interaction-area">
-            <label for="pull-slider">Slide to Pull Block:</label>
-            <input type="range" id="pull-slider" min="0" max="6" value="0" step="0.01"> 
-        </div>
-
         <div class="data-output">
             <h2>Required Force Output</h2>
             <p>Force Needed To Pull Block: <span id="required-force-display">0.00</span> N</p>
