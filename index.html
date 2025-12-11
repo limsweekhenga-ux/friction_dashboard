@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Friction Simulation Dashboard</title>
+    <title>Refined Friction Simulation Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="dashboard">
-        <h1>Friction and Force Simulation</h1>
+        <h1>Friction and Force Simulation Refined</h1>
 
         <div class="controls">
             <label for="surface-select">Select Surface Material:</label>
@@ -22,20 +22,25 @@
 
         <div id="simulation-area">
             <div id="surface-display"></div>
+            
             <div id="block-and-spring">
                 <div class="spring-balance">
-                    <div class="scale-reading">Reading: <span id="force-display">0.00</span> N</div>
+                    <div class="scale-reading">Force: <span id="force-display">0.00</span> N</div>
                 </div>
                 <div id="wood-block"></div>
             </div>
             
         </div>
+        
+        <div class="interaction-area">
+            <label for="pull-slider">Slide to Pull Block:</label>
+            <input type="range" id="pull-slider" min="0" max="6" value="0" step="0.01"> 
+        </div>
 
         <div class="data-output">
-            <h2>Data Output</h2>
-            <p>Coefficient of Kinetic Friction ($\mu_k$): <span id="mu-display">0.00</span></p>
-            <p>Block Mass ($m$): 0.5 kg (Constant)</p>
-            <p>Calculated Force Required ($F_{pull}$): <span id="force-calc-display">0.00</span> N</p>
+            <h2>Required Force Output</h2>
+            <p>Force Needed To Pull Block: <span id="required-force-display">0.00</span> N</p>
+            <p class="feedback-message" id="pull-feedback"></p>
         </div>
     </div>
 
