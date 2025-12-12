@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="dashboard">
-        <h1>Friction and Force Simulation (Drag Interaction)</h1>
+        <h1>Friction and Force Simulation (Realistic Spring Balance)</h1>
 
         <div class="controls">
             <label for="surface-select">Select Surface Material:</label>
@@ -24,12 +24,15 @@
             <div id="surface-display"></div>
             
             <div id="block-and-spring">
-                <div class="spring-balance">
-                    <div class="scale-reading">Force: <span id="force-display">0.00</span> N</div>
-                </div>
                 <div id="wood-block"></div> 
+                
+                <div class="spring-balance">
+                    <div class="spring-hook"></div> 
+                    <div class="scale-body">
+                        <div class="scale-indicator">Force: <span id="force-display">0.00</span> N</div>
+                    </div>
+                </div>
             </div>
-            
         </div>
         
         <div class="data-output">
