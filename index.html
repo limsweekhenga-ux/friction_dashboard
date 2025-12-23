@@ -3,42 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag Friction Simulation Dashboard</title>
+    <title>Sliding A Box Across Different Surfaces</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="dashboard">
-        <h1>Friction and Force Simulation (Realistic Spring Balance)</h1>
+        <h1>Sliding A Box Across Different Surfaces</h1>
 
         <div class="controls">
-            <label for="surface-select">Select Surface Material:</label>
-            <select id="surface-select">
-                <option value="plastic">Plastic</option>
-                <option value="metal">Metal</option>
-                <option value="sandpaper">Sandpaper</option>
-                <option value="carpet">Carpet</option>
-            </select>
+            <div class="input-group">
+                <label for="material-select">Select Surface Material:</label>
+                <select id="material-select">
+                    <option value="plastic">Plastic</option>
+                    <option value="metal">Metal</option>
+                    <option value="carpet">Carpet</option>
+                    <option value="sandpaper">Sandpaper</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button id="start-button">Start Pull</button>
+                <button id="stop-button" disabled>Stop</button>
+                <button id="reset-button">Reset</button>
+            </div>
         </div>
 
         <div id="simulation-area">
-            <div id="surface-display"></div>
+            <div id="surface-floor"></div>
             
-            <div id="block-and-spring">
-                <div id="wood-block"></div> 
-                
+            <div id="pulling-assembly">
+                <div id="sliding-box">BOX</div>
+
                 <div class="spring-balance">
-                    <div class="spring-hook"></div> 
-                    <div class="scale-body">
-                        <div class="scale-indicator">Force: <span id="force-display">0.00</span> N</div>
+                    <div class="hook-line"></div>
+                    <div class="gauge-casing">
+                        <div id="force-fill"></div>
                     </div>
+                </div>
+
+                <div class="pulling-hand">
+                    <div class="arm"></div>
+                    <div class="hand"></div>
                 </div>
             </div>
         </div>
         
         <div class="data-output">
-            <h2>Required Force Output</h2>
-            <p>Force Needed To Pull Block: <span id="required-force-display">0.00</span> N</p>
-            <p class="feedback-message" id="pull-feedback"></p>
+            <div class="force-display">
+                <span class="label">Force Needed to Pull:</span>
+                <span id="force-output">0.00</span> <span class="unit">N</span>
+            </div>
         </div>
     </div>
 
