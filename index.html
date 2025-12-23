@@ -7,51 +7,48 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="dashboard">
+    <div class="lab-container">
         <h1>Sliding A Box Across Different Surfaces</h1>
 
         <div class="controls">
-            <div class="input-group">
-                <label for="material-select">Select Surface:</label>
+            <div class="input-row">
+                <label for="material-select">Surface Material:</label>
                 <select id="material-select">
-                    <option value="plastic">Plastic (Smooth)</option>
-                    <option value="metal">Metal (Slippery)</option>
-                    <option value="carpet">Carpet (Rough)</option>
-                    <option value="sandpaper">Sandpaper (Very Rough)</option>
+                    <option value="plastic">Plastic</option>
+                    <option value="metal">Metal</option>
+                    <option value="carpet">Carpet</option>
+                    <option value="sandpaper">Sandpaper</option>
                 </select>
             </div>
-            <div class="button-group">
-                <button id="start-button">Start Pull</button>
-                <button id="stop-button" disabled>Stop</button>
-                <button id="reset-button">Reset</button>
+            <div class="button-row">
+                <button id="start-btn">Start Pull</button>
+                <button id="stop-btn" disabled>Stop</button>
+                <button id="reset-btn">Reset</button>
             </div>
         </div>
 
-        <div id="simulation-area">
-            <div id="surface-floor"></div>
+        <div id="simulation-window">
+            <div id="floor"></div>
             
             <div id="pulling-assembly">
-                <div id="sliding-box">BOX</div>
+                <div class="box">BOX</div>
 
                 <div class="spring-balance">
-                    <div class="hook"></div>
-                    <div class="gauge-body">
-                        <div id="force-fill"></div>
+                    <div class="hook-wire"></div>
+                    <div class="scale-body">
+                        <div id="force-line"></div>
                     </div>
                 </div>
 
-                <div class="toy-hand">
+                <div class="soldier-hand">
                     <div class="arm"></div>
                     <div class="fist"></div>
                 </div>
             </div>
         </div>
         
-        <div class="data-output">
-            <div class="force-display">
-                <span class="label">Pulling Force:</span>
-                <span id="force-output">0.00</span> <span class="unit">N</span>
-            </div>
+        <div class="results-board">
+            <p>Force Needed: <span id="force-val">0.00</span> N</p>
         </div>
     </div>
 
