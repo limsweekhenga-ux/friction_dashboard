@@ -1,6 +1,6 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f7f6;
     display: flex;
     justify-content: center;
     padding: 20px;
@@ -10,22 +10,20 @@ body {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    width: 800px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 850px;
     text-align: center;
 }
 
-.controls {
-    margin-bottom: 20px;
-}
+.controls { margin-bottom: 25px; }
 
 /* Simulation Stage */
 .simulation-stage {
     position: relative;
     height: 250px;
-    border: 2px solid #ddd;
+    border-bottom: 5px solid #333;
     overflow: hidden;
-    background-color: #fafafa;
+    background-color: #fff;
     margin-bottom: 20px;
 }
 
@@ -34,68 +32,65 @@ body {
     bottom: 0;
     width: 100%;
     height: 60px;
-    transition: background 0.3s;
-    background-color: #deb887; /* Default Wood */
 }
 
-/* Surface Textures */
-.texture-wood { background-color: #deb887; border-top: 4px solid #8b4513; }
-.texture-metal { background-color: #bdc3c7; border-top: 4px solid #7f8c8d; background-image: linear-gradient(90deg, transparent 50%, rgba(255,255,255,0.2) 50%); background-size: 50px; }
-.texture-sandpaper { background-color: #c2b280; border-top: 4px solid #a68d44; background-image: radial-gradient(#444 1px, transparent 1px); background-size: 4px 4px; }
-.texture-carpet { background-color: #556b2f; border-top: 4px solid #2e3b1a; background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 5px, rgba(0,0,0,0.1) 10px); }
+/* Updated Surface Textures */
+.texture-wood { background-color: #deb887; background-image: repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(0,0,0,0.05) 10px, rgba(0,0,0,0.05) 12px); }
+.texture-metal { background-color: #bdc3c7; background-image: linear-gradient(rgba(255,255,255,0.5), transparent); }
+.texture-carpet { background-color: #556b2f; background-image: radial-gradient(#4b5d29 20%, transparent 20%); background-size: 8px 8px; }
+.texture-sandpaper { background-color: #c2b280; background-image: url('https://www.transparenttextures.com/patterns/sandpaper.png'); }
 
-/* Moving Elements */
 #animation-container {
     position: absolute;
     bottom: 60px;
-    left: 20px;
+    left: 10px;
     display: flex;
     align-items: center;
-    transition: transform 1.5s ease-in-out;
+    transition: transform 1.2s ease-in-out;
 }
 
-#hand {
-    font-size: 40px;
-}
+#hand { font-size: 45px; z-index: 2; }
 
+/* The fix: This container grows, pushing the box */
 #spring-balance {
-    width: 100px;
-    height: 10px;
-    background: #333;
+    height: 15px;
+    min-width: 80px; /* Starting length */
+    background: #eee;
+    border: 2px solid #555;
     position: relative;
-    margin: 0 5px;
+    transition: width 0.4s ease;
 }
 
-#spring {
+#spring-coil {
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient(90deg, #777, #777 2px, #333 2px, #333 4px);
-    transition: width 0.5s;
+    background: repeating-linear-gradient(90deg, transparent, transparent 5px, #444 5px, #444 10px);
 }
 
 #scale-label {
     position: absolute;
-    top: -20px;
-    width: 100%;
-    font-size: 12px;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
     font-weight: bold;
+    font-size: 14px;
 }
 
 #box {
-    width: 60px;
-    height: 60px;
-    background-color: #d35400;
+    width: 70px;
+    height: 70px;
+    background-color: #a0522d;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    border-radius: 4px;
+    border: 2px solid #5d2e1a;
 }
 
 .data-display {
-    background: #e8f4fd;
+    background: #f9f9f9;
     padding: 15px;
-    border-radius: 8px;
-    border-left: 5px solid #3498db;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
