@@ -2,56 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sliding A Box Across Different Surfaces</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="lab-container">
+    <div class="main-container">
         <h1>Sliding A Box Across Different Surfaces</h1>
 
-        <div class="controls">
-            <div class="input-row">
-                <label for="material-select">Surface Material:</label>
-                <select id="material-select">
-                    <option value="plastic">Plastic</option>
-                    <option value="metal">Metal</option>
-                    <option value="carpet">Carpet</option>
-                    <option value="sandpaper">Sandpaper</option>
-                </select>
-            </div>
-            <div class="button-row">
-                <button id="start-btn">Start Pull</button>
-                <button id="stop-btn" disabled>Stop</button>
-                <button id="reset-btn">Reset</button>
+        <div class="control-panel">
+            <label>Surface:</label>
+            <select id="surface-selector">
+                <option value="plastic">Plastic</option>
+                <option value="metal">Metal</option>
+                <option value="carpet">Carpet</option>
+                <option value="sandpaper">Sandpaper</option>
+            </select>
+            <div class="btn-group">
+                <button id="btn-start" style="background: green; color: white;">Start Pull</button>
+                <button id="btn-stop" style="background: red; color: white;" disabled>Stop</button>
+                <button id="btn-reset" style="background: orange;">Reset</button>
             </div>
         </div>
 
-        <div id="simulation-window">
-            <div id="floor"></div>
+        <div class="sim-stage">
+            <div id="ground-surface"></div>
             
-            <div id="pulling-assembly">
-                <div class="box">BOX</div>
-
-                <div class="spring-balance">
-                    <div class="hook-wire"></div>
-                    <div class="scale-body">
-                        <div id="force-line"></div>
-                    </div>
+            <div id="moving-parts">
+                <div class="the-box">BOX</div>
+                <div class="spring-scale">
+                    <div class="string"></div>
+                    <div class="scale-case"><div id="red-gauge"></div></div>
                 </div>
-
-                <div class="soldier-hand">
+                <div class="toy-hand">
                     <div class="arm"></div>
-                    <div class="fist"></div>
+                    <div class="hand"></div>
                 </div>
             </div>
         </div>
         
-        <div class="results-board">
-            <p>Force Needed: <span id="force-val">0.00</span> N</p>
+        <div class="data-box">
+            Force Required: <span id="force-display">0.00</span> N
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
