@@ -2,48 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sliding A Box Across Different Surfaces</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friction Simulation</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="main-container">
-        <h1>Sliding A Box Across Different Surfaces</h1>
 
-        <div class="control-panel">
-            <label>Surface:</label>
-            <select id="surface-selector">
-                <option value="plastic">Plastic</option>
-                <option value="metal">Metal</option>
-                <option value="carpet">Carpet</option>
-                <option value="sandpaper">Sandpaper</option>
-            </select>
-            <div class="btn-group">
-                <button id="btn-start" style="background: green; color: white;">Start Pull</button>
-                <button id="btn-stop" style="background: red; color: white;" disabled>Stop</button>
-                <button id="btn-reset" style="background: orange;">Reset</button>
-            </div>
-        </div>
-
-        <div class="sim-stage">
-            <div id="ground-surface"></div>
-            
-            <div id="moving-parts">
-                <div class="the-box">BOX</div>
-                <div class="spring-scale">
-                    <div class="string"></div>
-                    <div class="scale-case"><div id="red-gauge"></div></div>
-                </div>
-                <div class="toy-hand">
-                    <div class="arm"></div>
-                    <div class="hand"></div>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <h1>Friction of Different Surfaces</h1>
         
-        <div class="data-box">
-            Force Required: <span id="force-display">0.00</span> N
+        <div class="controls">
+            <label for="surface-select">Select Surface: </label>
+            <select id="surface-select">
+                <option value="wood">Wood</option>
+                <option value="metal">Metal (Smooth)</option>
+                <option value="sandpaper">Sandpaper (Rough)</option>
+                <option value="carpet">Carpet (High Friction)</option>
+            </select>
+            <button id="run-btn">Pull Box</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+
+        <div class="simulation-stage">
+            <div id="surface-floor"></div>
+            
+            <div id="animation-container">
+                <div id="hand">✋</div>
+                
+                <div id="spring-balance">
+                    <div id="spring"></div>
+                    <div id="scale-label">0N</div>
+                </div>
+
+                <div id="box">BOX</div>
+            </div>
+        </div>
+
+        <div class="data-display">
+            <h3>Data Output</h3>
+            <p>Surface Material: <span id="display-surface">Wood</span></p>
+            <p>Force Needed to Move: <strong><span id="display-force">0</span> Newtons (N)</strong></p>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
