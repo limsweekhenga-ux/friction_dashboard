@@ -1,163 +1,140 @@
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #cbd5e0;
+    padding-top: 50px;
+    background-color: #f0f0f0;
 }
 
-.dashboard {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    width: 95%;
-    max-width: 600px;
+.lab-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 600px;
     text-align: center;
 }
 
-h1 { color: #2d3748; margin-bottom: 20px; font-size: 1.4rem; }
-
-.controls {
-    background: #f7fafc;
+.controls, .results-board {
+    background: #e9ecef;
     padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    margin: 10px 0;
 }
 
-.button-group {
+.button-row {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 5px;
 }
 
 button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
+    padding: 8px 15px;
     cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
     color: white;
 }
 
-#start-button { background-color: #38a169; }
-#stop-button { background-color: #e53e3e; }
-#reset-button { background-color: #d69e2e; }
-
-button:disabled { background-color: #a0aec0; cursor: not-allowed; }
+#start-btn { background: #28a745; }
+#stop-btn { background: #dc3545; }
+#reset-btn { background: #ffc107; color: #333; }
+button:disabled { background: #ccc; cursor: not-allowed; }
 
 /* Simulation Area */
-#simulation-area {
+#simulation-window {
     position: relative;
     width: 100%;
     height: 200px;
-    background-color: #edf2f7;
-    border: 3px solid #4a5568;
-    border-radius: 10px;
+    background: #fff;
+    border: 2px solid #333;
     overflow: hidden;
+    margin-top: 20px;
 }
 
-#surface-floor {
+#floor {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 60px;
-    border-top: 4px solid #2d3748;
+    height: 50px;
+    border-top: 3px solid #000;
 }
 
-/* Material Colors */
-.mat-plastic { background-color: #bee3f8; }
-.mat-metal { background-color: #a0aec0; background-image: linear-gradient(90deg, transparent 50%, rgba(255,255,255,0.2) 50%); background-size: 50px 100%; }
-.mat-carpet { background-color: #4a5568; background-image: radial-gradient(#2d3748 1px, transparent 1px); background-size: 10px 10px; }
-.mat-sandpaper { background-color: #975a16; }
+/* Material styles */
+.plastic { background-color: #a5d8ff; }
+.metal { background-color: #adb5bd; }
+.carpet { background-color: #513b3b; }
+.sandpaper { background-color: #854d0e; }
 
+/* The Moving Assembly */
 #pulling-assembly {
     position: absolute;
-    bottom: 60px; /* Sits exactly on the floor line */
-    left: 20px;
+    bottom: 50px;
+    left: 10px;
     display: flex;
     align-items: center;
-    z-index: 10;
+    width: 300px;
 }
 
-/* 1. The Box */
-#sliding-box {
+.box {
     width: 80px;
     height: 60px;
-    background-color: #8b4513;
-    border: 3px solid #5d2e0a;
+    background: #8b4513;
+    border: 3px solid #3e2723;
     color: white;
-    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: bold;
 }
 
-/* 2. Spring Balance */
 .spring-balance {
     display: flex;
     align-items: center;
 }
 
-.hook {
+.hook-wire {
     width: 20px;
-    height: 4px;
-    background-color: #4a5568;
+    height: 3px;
+    background: #333;
 }
 
-.gauge-body {
-    width: 80px;
-    height: 24px;
-    background: #ffffff;
-    border: 2px solid #2d3748;
+.scale-body {
+    width: 70px;
+    height: 20px;
+    background: #ced4da;
+    border: 2px solid #333;
     position: relative;
-    border-radius: 4px;
-    overflow: hidden;
 }
 
-#force-fill {
+#force-line {
     position: absolute;
     left: 0;
     height: 100%;
     width: 0%;
-    background-color: #f56565;
-    transition: width 0.5s ease;
+    background: #ff0000;
 }
 
-/* 3. The Toy Soldier Hand */
-.toy-hand {
+.soldier-hand {
     display: flex;
     align-items: center;
 }
 
 .arm {
-    width: 50px;
-    height: 14px;
-    background-color: #2d5a27; /* Army Green */
-    border-radius: 0 5px 5px 0;
+    width: 40px;
+    height: 15px;
+    background: #2d5a27; /* Army Green */
 }
 
 .fist {
-    width: 20px;
-    height: 24px;
-    background-color: #2d5a27;
-    margin-left: -15px;
-    border-radius: 5px;
+    width: 15px;
+    height: 25px;
+    background: #2d5a27;
+    margin-left: -5px;
+    border-radius: 4px;
 }
 
-/* Data Output */
-.data-output {
-    margin-top: 20px;
-    padding: 20px;
-    background: #2d3748;
-    color: white;
-    border-radius: 10px;
-}
-
-.force-display { font-size: 1.8rem; font-weight: bold; }
-#force-output { color: #68d391; }
-.unit { font-size: 1rem; color: #a0aec0; }
+.results-board { font-size: 1.5rem; font-weight: bold; }
+#force-val { color: #d9534f; }
