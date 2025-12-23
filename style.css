@@ -1,121 +1,101 @@
-.main-container {
-    width: 600px;
-    margin: 50px auto;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    border: 2px solid #333;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
     padding: 20px;
-    background: #fff;
 }
 
-.control-panel, .data-box {
-    background: #eee;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 800px;
+    text-align: center;
 }
 
-.sim-stage {
+.controls {
+    margin-bottom: 20px;
+}
+
+/* Simulation Stage */
+.simulation-stage {
     position: relative;
-    width: 100%;
-    height: 200px;
-    background: #sky;
-    border: 2px solid #000;
+    height: 250px;
+    border: 2px solid #ddd;
     overflow: hidden;
-    background-color: #e0f7fa;
+    background-color: #fafafa;
+    margin-bottom: 20px;
 }
 
-#ground-surface {
+#surface-floor {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 50px;
-    border-top: 4px solid #333;
-}
-
-/* Material Colors */
-.bg-plastic { background: #81d4fa; }
-.bg-metal { background: #b0bec5; }
-.bg-carpet { background: #795548; }
-.bg-sandpaper { background: #ffab91; }
-
-/* MOVING ASSEMBLY */
-#moving-parts {
-    position: absolute;
-    bottom: 50px; /* Sits on top of the ground */
-    left: 20px;
-    display: flex; /* Lines elements up horizontally */
-    align-items: center;
-    transition: none;
-}
-
-.the-box {
-    width: 80px;
     height: 60px;
-    background: #5d4037; /* Dark Brown */
-    border: 3px solid #000;
+    transition: background 0.3s;
+    background-color: #deb887; /* Default Wood */
+}
+
+/* Surface Textures */
+.texture-wood { background-color: #deb887; border-top: 4px solid #8b4513; }
+.texture-metal { background-color: #bdc3c7; border-top: 4px solid #7f8c8d; background-image: linear-gradient(90deg, transparent 50%, rgba(255,255,255,0.2) 50%); background-size: 50px; }
+.texture-sandpaper { background-color: #c2b280; border-top: 4px solid #a68d44; background-image: radial-gradient(#444 1px, transparent 1px); background-size: 4px 4px; }
+.texture-carpet { background-color: #556b2f; border-top: 4px solid #2e3b1a; background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.1) 5px, rgba(0,0,0,0.1) 10px); }
+
+/* Moving Elements */
+#animation-container {
+    position: absolute;
+    bottom: 60px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    transition: transform 1.5s ease-in-out;
+}
+
+#hand {
+    font-size: 40px;
+}
+
+#spring-balance {
+    width: 100px;
+    height: 10px;
+    background: #333;
+    position: relative;
+    margin: 0 5px;
+}
+
+#spring {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg, #777, #777 2px, #333 2px, #333 4px);
+    transition: width 0.5s;
+}
+
+#scale-label {
+    position: absolute;
+    top: -20px;
+    width: 100%;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#box {
+    width: 60px;
+    height: 60px;
+    background-color: #d35400;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-}
-
-.spring-scale {
-    display: flex;
-    align-items: center;
-}
-
-.string {
-    width: 20px;
-    height: 3px;
-    background: #000;
-}
-
-.scale-case {
-    width: 60px;
-    height: 20px;
-    border: 2px solid #000;
-    background: white;
-    position: relative;
-}
-
-#red-gauge {
-    position: absolute;
-    left: 0;
-    height: 100%;
-    width: 0%;
-    background: red;
-}
-
-.toy-hand {
-    display: flex;
-    align-items: center;
-}
-
-.arm {
-    width: 40px;
-    height: 12px;
-    background: #2e7d32; /* Green Army Arm */
-}
-
-.hand {
-    width: 15px;
-    height: 25px;
-    background: #2e7d32;
     border-radius: 4px;
-    margin-left: -5px;
 }
 
-#force-display {
-    font-size: 24px;
-    color: red;
-    font-weight: bold;
-}
-
-button {
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-    font-weight: bold;
+.data-display {
+    background: #e8f4fd;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #3498db;
 }
