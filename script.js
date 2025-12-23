@@ -1,85 +1,63 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const materialSelect = document.getElementById('material-select');
-    const startBtn = document.getElementById('start-btn');
-    const stopBtn = document.getElementById('stop-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const floor = document.getElementById('floor');
-    const assembly = document.getElementById('pulling-assembly');
-    const forceLine = document.getElementById('force-line');
-    const forceVal = document.getElementById('force-val');
+    const selector = document.getElementById('surface-selector');
+    const startBtn = document.getElementById('btn-start');
+    const stopBtn = document.getElementById('btn-stop');
+    const resetBtn = document.getElementById('btn-reset');
+    const ground = document.getElementById('ground-surface');
+    const assembly = document.getElementById('moving-parts');
+    const gauge = document.getElementById('red-gauge');
+    const display = document.getElementById('force-display');
 
-    // Friction data
-    const friction = {
+    const frictionMap = {
         plastic: 0.2,
-        metal: 0.35,
+        metal: 0.3,
         carpet: 0.6,
         sandpaper: 0.9
     };
 
-    let animationTimer;
-
-    function update() {
-        const mat = materialSelect.value;
-        floor.className = mat;
+    function refresh() {
+        const mat = selector.value;
+        ground.className = 'bg-' + mat;
         
-        // F = mu * mass * gravity (assuming 1kg)
-        const force = friction[mat] * 9.81;
-        forceVal.textContent = force.toFixed(2);
+        // Calculation
+        const force = frictionMap[mat] * 10; 
+        display.textContent = force.toFixed(2);
         
-        resetSim();
+        // Reset position
+        assembly.style.transition = "none";
+        assembly.style.left = "20px";
+        gauge.style.width = "0%";
+        
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
     }
 
-    function startSim() {
-        const mat = materialSelect.value;
-        const mu = friction[mat];
-        
+    startBtn.onclick = () => {
+        const mu = frictionMap[selector.value];
         startBtn.disabled = true;
         stopBtn.disabled = false;
-        materialSelect.disabled = true;
 
-        // Visual tension in scale
-        forceLine.style.width = (mu * 100) + "%";
+        // 1. Pull the gauge
+        gauge.style.width = (mu * 100) + "%";
 
+        // 2. Slide
         setTimeout(() => {
-            // Speed depends on friction (rougher = slower)
-            const duration = 2 + (mu * 3);
-            assembly.style.transition = `left ${duration}s linear`;
+            const time = 2 + (mu * 2);
+            assembly.style.transition = `left ${time}s linear`;
             assembly.style.left = "350px";
         }, 500);
+    };
 
-        animationTimer = setTimeout(() => {
-            stopBtn.disabled = true;
-            startBtn.disabled = false;
-            materialSelect.disabled = false;
-        }, 5000);
-    }
-
-    function stopSim() {
-        clearTimeout(animationTimer);
+    stopBtn.onclick = () => {
         const currentLeft = window.getComputedStyle(assembly).left;
         assembly.style.transition = "none";
         assembly.style.left = currentLeft;
-        
-        startBtn.disabled = false;
         stopBtn.disabled = true;
-    }
-
-    function resetSim() {
-        clearTimeout(animationTimer);
-        assembly.style.transition = "none";
-        assembly.style.left = "10px";
-        forceLine.style.width = "0%";
-        
         startBtn.disabled = false;
-        stopBtn.disabled = true;
-        materialSelect.disabled = false;
-    }
+    };
 
-    materialSelect.addEventListener('change', update);
-    startBtn.addEventListener('click', startSim);
-    stopBtn.addEventListener('click', stopSim);
-    resetBtn.addEventListener('click', resetSim);
+    resetBtn.onclick = refresh;
+    selector.onchange = refresh;
 
-    // Initial call
-    update();
+    refresh(); // Run once on load
 });
